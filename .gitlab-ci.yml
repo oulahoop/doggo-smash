@@ -1,4 +1,5 @@
 image: node:16.18.0
+
 pages:
   cache:
     paths:
