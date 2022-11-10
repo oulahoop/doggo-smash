@@ -1,21 +1,14 @@
-image: node
-
+image: node:12.18.4
 pages:
-  tags:
-    - docker
-  stage: deploy
   cache:
     paths:
       - node_modules/
   script:
+    - npm install -g @angular/cli@10.2.0
     - npm install
-    - npm run build
-    - rm -rf public
-    - cp dist/doggo-smash/index.html dist/doggo-smash/404.html
-    - mv dist public
+    - ng build --prod --base-href /app/
+    - mkdir -p public
+    - mv dist/app/* public/
   artifacts:
     paths:
       - public
-  only:
-    - main
-    
