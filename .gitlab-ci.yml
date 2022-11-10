@@ -1,15 +1,15 @@
-image: node:12.18.4
-
+image: node
 pages:
   cache:
     paths:
       - node_modules/
   script:
-    - npm install -g @angular/cli@10.2.0
+    - npm install -g @angular/cli@^14.2.0
     - npm install
-    - ng build --prod --base-href /app/
-    - mkdir -p public
-    - mv dist/app/* public/
+    - npm run buildProd
   artifacts:
     paths:
       - public
+  only:
+    - master
+    - pages
