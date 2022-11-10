@@ -1,0 +1,45 @@
+.back{
+    padding: 0 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.separate {
+    width: 100%;
+}
+
+.my-smashs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-direction: column;
+}
+
+.titre{
+    text-align: center;
+    width: 100%;
+    color: white;
+    margin: 10% 5%;
+}
+
+.noDoggo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    app-item-smash {
+        width: 80%;
+        margin-right: 20px;
+    }
+}

@@ -1,0 +1,29 @@
+.header{
+    background-color: black;
+    display: flex;
+    align-items: center;
+    height: 80px;
+    padding: 5px 10px;
+    justify-content: space-between;
+    a{
+        width: 10%;
+        height: 100%;
+        img {
+            max-height: 100%;
+            object-fit: contain;
+        }
+    }
+    ul{
+        list-style: none;
+        display: flex;
+        li{
+            margin: 5px 20px;
+            a{
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 20px;
+            }
+        }
+    }
+}

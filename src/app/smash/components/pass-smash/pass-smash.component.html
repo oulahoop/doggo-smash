@@ -1,0 +1,13 @@
+<div class="smash-pass">
+    <div class="buttons" [ngClass]="{'disabled': !buttons}">
+        <button class="smash" [disabled]="!buttons" (click)="smashDoggo()">SMASH</button>
+        <button class="pass" [disabled]="!buttons" (click)="switchDoggo()">PASS</button>
+    </div>
+    <div class="center" *ngIf="doggo == null">
+        <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="6" fillanimationDuration=".05s"></p-progressSpinner>
+    </div>
+    <div *ngIf="doggo != null">
+        <app-item-smash [doggo]="doggo" (loaded)="enableButtons()"></app-item-smash>
+    </div>
+
+</div>

@@ -1,0 +1,16 @@
+
+<ng-template [ngIfElse]="notOwner" [ngIf]="owner">
+    <div class="chat-item-1">
+        <div class="chat-1">
+            <p>{{content}}</p>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #notOwner>
+    <div class="chat-item-0">
+        <div class="chat-0">
+            <p>{{content}}</p>
+        </div>
+    </div> 
+</ng-template>

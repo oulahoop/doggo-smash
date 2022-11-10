@@ -1,0 +1,89 @@
+.smash-pass{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.buttons.disabled{
+    .smash{
+        background-color: rgb(55, 95, 55);
+        cursor: default;
+    }
+    .pass{
+        background-color: rgb(230, 127, 127);
+        cursor: default;
+    } 
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+        width: 300px;
+        height: 80px;
+        border-radius: 10px;
+        color: white;
+        border: none;
+        font-size: 35px;
+        font-weight: bold;
+        margin: 20px;
+        cursor: pointer;
+    }  
+    .smash{
+        background-color: green;
+    }
+    .pass{
+        background-color: red;
+    } 
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+}
+
+.smash-animation{
+    animation: smash-anim 0.3s;
+}
+
+:host ::ng-deep .custom-spinner .p-progress-spinner-circle {
+    animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
+}
+
+@keyframes custom-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #FFF;
+    }
+}
+
+@keyframes custom-progress-spinner-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+    }
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+    }
+}
+
+
+@keyframes smash-anim {
+    from{
+
+    }
+
+    to {
+        rotate: 20px;
+        opacity: 0.7;
+    }
+}

@@ -1,0 +1,22 @@
+<div class="" *ngIf="doggo$ | async; let doggo">
+    <div class="top-chat">
+        <img class="circle-pp" [src]="doggo.img" alt="doggo profile pic">
+        <h1>{{doggo.name}}</h1>
+    </div>
+    <div class="chat" id="scrollMe" #scrollMe>
+        <div class="" *ngFor="let chat of chats">
+            <app-chat-item [owner]="chat.owner" [content]="chat.content"></app-chat-item>
+        </div>
+    </div>
+    <div class="bottom-chat">
+        <form [formGroup]="formMessage" (submit)="ok($event)" >
+        <input id="chat-input" type="text" placeholder="Ecrivez votre message..." formControlName="content">
+        <button class="envoyer" type="submit">
+            <svg data-name="Layer 45" height="50" id="Layer_45" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10.854 15.264 9 17.455 9 21 19 8 10.854 15.264" style="fill:#73cdff"/>
+                <polygon points="3 12 8.607 14.99 8.613 14.99 17 8 10.775 15.357 12 16.781 18 20 21 3 3 12" style="fill:#73cdff"/>
+            </svg>
+        </button>
+        </form>
+    </div>
+</div>
