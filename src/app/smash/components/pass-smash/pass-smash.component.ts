@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SmashModel } from '../../models/smash.model';
 import { SmashService } from '../../services/smash.service';
+import {MesSmashsStore} from "../../store/mes-smashs.store";
 
 @Component({
   selector: 'app-pass-smash',
@@ -13,7 +14,7 @@ export class PassSmashComponent implements OnInit {
   doggo!: SmashModel | null;
   buttons: boolean = false;
   first: boolean = true;
-  constructor(private smashService: SmashService) { }
+  constructor(private smashService: SmashService, private mesSmashsStore: MesSmashsStore) { }
 
   ngOnInit(): void {
     this.switchDoggo();
@@ -30,12 +31,9 @@ export class PassSmashComponent implements OnInit {
     });
     this.buttons = false;
   }
-  
+
   smashDoggo() {
-    let list = localStorage.getItem("smashs");
-    if(list === null) list = "";
-    list+= this.doggo?.id + "," + this.doggo?.name + ";";
-    localStorage.setItem("smashs", list);
+    this.mesSmashsStore.addSmash(this.doggo);
     this.switchDoggo();
   }
 

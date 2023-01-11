@@ -9,9 +9,9 @@ import { MySmashComponent } from './components/my-smash/my-smash.component';
 import { DoggoChatComponent } from './components/doggo-chat/doggo-chat.component';
 import { ChatItemComponent } from './components/chat-item/chat-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ChatViewRefDirective } from './directives/chat-view-ref.directive';
 import { ButtonModule } from 'primeng/button';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {MesSmashsStore} from "./store/mes-smashs.store";
 
 @NgModule({
   declarations: [
@@ -20,7 +20,6 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     MySmashComponent,
     DoggoChatComponent,
     ChatItemComponent,
-    ChatViewRefDirective
   ],
   imports: [
     CommonModule,
@@ -31,4 +30,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ProgressSpinnerModule
   ],
 })
-export class SmashModule { }
+export class SmashModule {
+  constructor(mesSmashStore: MesSmashsStore) {
+    mesSmashStore.setup();
+  }
+}

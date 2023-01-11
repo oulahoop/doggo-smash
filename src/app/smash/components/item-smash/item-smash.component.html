@@ -1,5 +1,5 @@
 <div class="card" [ngClass]="{'chat': chatMode}">
-    <img [src]="doggo.img" (load)="emit()">
+    <img [src]="doggo.img" (load)="emit()" alt="">
     <h1 class="title" *ngIf="!chatMode">{{ doggo.name }}</h1>
     <div class="" *ngIf="chatMode">
         <h1 class="titre">{{doggo.name}}</h1>

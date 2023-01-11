@@ -18,7 +18,6 @@ export class ItemSmashComponent implements OnInit {
     let conv = localStorage.getItem(this.doggo.id);
     if(conv != null){
       let arr = JSON.parse(conv);
-      console.log(arr);
       this.doggoLastConv = arr[arr.length-1]['content'];
     }
   }
