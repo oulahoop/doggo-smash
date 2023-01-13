@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SmashModel } from '../../models/smash.model';
@@ -12,7 +12,7 @@ import {ChatStore} from "../../store/chat.store";
   templateUrl: './doggo-chat.component.html',
   styleUrls: ['./doggo-chat.component.scss'],
 })
-export class DoggoChatComponent implements OnInit {
+export class DoggoChatComponent implements OnInit, AfterViewInit {
 
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
   chats: ChatModel[] = []
@@ -44,11 +44,16 @@ export class DoggoChatComponent implements OnInit {
     this.getDoggoProfileByIndex();
     this.retrieveChats();
 
-    //initialisation du formulaire et de la vue
+    //initialisation du formulaire
     this.formMessage = new FormGroup({
       'content': new FormControl('')
     });
+  }
 
+  /**
+   * Scroll tout en bas de la conversation après que la vue à été initialisée
+   */
+  ngAfterViewInit(): void {
     this.scrollToBottom();
   }
 
