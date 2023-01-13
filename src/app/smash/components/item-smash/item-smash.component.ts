@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SmashModel } from '../../models/smash.model';
+import {ChatStore} from "../../store/chat.store";
+import {ChatModel} from "../../models/chat.model";
 
 @Component({
   selector: 'app-item-smash',
@@ -11,15 +13,11 @@ export class ItemSmashComponent implements OnInit {
   @Input() doggo!:SmashModel;
   @Input() chatMode!: boolean;
   @Output() loaded = new EventEmitter<boolean>();
-  doggoLastConv!: string;
-  constructor() { }
+  doggoLastConv!: ChatModel | null;
+  constructor(private chatStore: ChatStore) { }
 
   ngOnInit(): void {
-    let conv = localStorage.getItem(this.doggo.id);
-    if(conv != null){
-      let arr = JSON.parse(conv);
-      this.doggoLastConv = arr[arr.length-1]['content'];
-    }
+    this.doggoLastConv = this.chatStore.getLastConv(this.doggo.id);
   }
 
   emit(): void {

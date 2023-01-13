@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {MesSmashsStore} from "./store/mes-smashs.store";
+import {ChatStore} from "./store/chat.store";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import {MesSmashsStore} from "./store/mes-smashs.store";
   ],
 })
 export class SmashModule {
-  constructor(mesSmashStore: MesSmashsStore) {
+  constructor(mesSmashStore: MesSmashsStore, chatStore: ChatStore) {
+    //initialisation des stores
     mesSmashStore.setup();
+    chatStore.setup();
   }
 }

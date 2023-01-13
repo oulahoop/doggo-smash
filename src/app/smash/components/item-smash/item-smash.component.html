@@ -3,7 +3,7 @@
     <h1 class="title" *ngIf="!chatMode">{{ doggo.name }}</h1>
     <div class="" *ngIf="chatMode">
         <h1 class="titre">{{doggo.name}}</h1>
-        <p *ngIf="doggoLastConv == null">Démarrer la conversation avec {{ doggo.name }}</p>
-        <p *ngIf="doggoLastConv != null">Lui : {{ doggoLastConv }}</p>
+        <p *ngIf="doggoLastConv === null">Démarrer la conversation avec {{ doggo.name }}</p>
+        <p *ngIf="doggoLastConv !== null">Lui : {{ doggoLastConv.content }}</p>
     </div>
 </div>

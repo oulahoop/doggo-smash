@@ -8,7 +8,7 @@
     </div>
 </div>
 <div class="bottom-chat">
-    <form [formGroup]="formMessage" (submit)="ok($event)" >
+    <form [formGroup]="formMessage" (submit)="sendMessage($event)" >
     <input id="chat-input" type="text" placeholder="Ecrivez votre message..." formControlName="content">
     <button class="envoyer" type="submit">
         <svg data-name="Layer 45" height="50" id="Layer_45" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg">

@@ -13,7 +13,7 @@ export class PassSmashComponent implements OnInit {
 
   doggo!: SmashModel | null;
   buttons: boolean = false;
-  first: boolean = true;
+
   constructor(private smashService: SmashService, private mesSmashsStore: MesSmashsStore) { }
 
   ngOnInit(): void {

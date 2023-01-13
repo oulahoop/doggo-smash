@@ -6,6 +6,8 @@ import { SmashModel } from '../../models/smash.model';
 import { SmashService } from '../../services/smash.service';
 import { ChatItemComponent } from '../chat-item/chat-item.component';
 import {MesSmashsStore} from "../../store/mes-smashs.store";
+import {ChatModel} from "../../models/chat.model";
+import {ChatStore} from "../../store/chat.store";
 
 @Component({
   selector: 'app-doggo-chat',
@@ -15,10 +17,10 @@ import {MesSmashsStore} from "../../store/mes-smashs.store";
 export class DoggoChatComponent implements OnInit {
 
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
-  chats: {'content': string, 'owner': boolean}[] = []
+  chats: ChatModel[] = []
 
   indexDoggo!:number;
-  idDoggo!:string;
+
   doggo!:SmashModel;
   formMessage!: FormGroup;
 
@@ -27,16 +29,20 @@ export class DoggoChatComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private smashService: SmashService,
-    private mesSmashStore: MesSmashsStore
+    private mesSmashStore: MesSmashsStore,
+    private chatStore: ChatStore
   ) {  }
 
   ngOnInit(): void {
     let index = this.route.snapshot.paramMap.get('id');
+
     if(index == null) {
       this.router.navigateByUrl('me');
       return;
     }
+
     this.indexDoggo = +index;
+
     this.getDoggoProfileByIndex();
     this.retrieveChats();
     this.formMessage = new FormGroup({
@@ -52,7 +58,6 @@ export class DoggoChatComponent implements OnInit {
     }
   }
 
-
   getDoggoProfileByIndex(): void{
     this.doggo = this.mesSmashStore.getDoggoByIndex(this.indexDoggo);
     if(this.doggo === null) {
@@ -61,26 +66,24 @@ export class DoggoChatComponent implements OnInit {
   }
 
   retrieveChats() {
-    let chatsStorage= localStorage.getItem(this.doggo.id);
-    if(chatsStorage !== null) {
-      this.chats = JSON.parse(chatsStorage);
-    }
+    this.chats = this.chatStore.retrieveAllChats(this.doggo.id);
   }
 
-  ok(event: any){
+  sendMessage(event: any) {
     event.preventDefault();
 
     if(this.content.value == ""){
       return
     }
 
-    this.chats.push({'content': this.content.value, 'owner': true});
+    let chatToSend = new ChatModel(this.doggo.id, this.content.value, true);
+    this.chatStore.addChat(chatToSend);
+    this.chats.push(chatToSend);
     this.formMessage.setValue({'content':''});
 
     this.addResponse();
     setTimeout(() => {
       this.scrollToBottom();
-      localStorage.setItem(this.doggo.id, JSON.stringify(this.chats));
     }, 1);
   }
 
@@ -91,18 +94,16 @@ export class DoggoChatComponent implements OnInit {
       "Wouf wouf wouf wouf... Wouf !",
       "Wouf xD",
       "WOOUUUUF MDR",
-      "putain je fais quoi de ma vie",
       "ça va et toi ?",
       "salut wouf"
     ];
-
-    this.chats.push({'content': potentialResp[Math.round(Math.random() * (potentialResp.length-1))], 'owner': false});
-    this.formMessage.setValue({'content':''});
+    let chatFromDoggo = new ChatModel(this.doggo.id, potentialResp[Math.round(Math.random() * (potentialResp.length-1))], false);
+    this.chatStore.addChat(chatFromDoggo);
+    this.chats.push(chatFromDoggo);
   }
 
   get content():FormControl {
     return this.formMessage.get('content') as FormControl;
   }
-
 
 }
