@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { SmashModel } from '../../models/smash.model';
 import { SmashService } from '../../services/smash.service';
 import {MesSmashsStore} from "../../store/mes-smashs.store";
@@ -16,11 +15,19 @@ export class MySmashComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Ouvre le chat avec un doggo par son index
+   * @param index l'index du doggo
+   */
   openChat(index: number) {
     this.router.navigateByUrl('chat/' + index);
   }
 
-  deleteChat(smash: SmashModel) {
+  /**
+   * Supprime un doggo des doggo smashs
+   * @param smash
+   */
+  deleteSmash(smash: SmashModel) {
     this.mesSmashsStore.deleteSmash(smash)
   }
 }

@@ -40,7 +40,7 @@ export class ChatStore {
    * Retrouve la dernière conversation avec un doggo
    * @param doggoId l'id du doggo
    */
-  getLastConv(doggoId: string) {
+  getLastChat(doggoId: string) {
     let allChats = this.chats.filter((chat) => chat.doggoId === doggoId);
     if(allChats.length > 0) {
       return allChats[allChats.length-1];

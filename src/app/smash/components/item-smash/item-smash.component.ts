@@ -13,14 +13,18 @@ export class ItemSmashComponent implements OnInit {
   @Input() doggo!:SmashModel;
   @Input() chatMode!: boolean;
   @Output() loaded = new EventEmitter<boolean>();
-  doggoLastConv!: ChatModel | null;
+  doggoLastChat!: ChatModel | null;
   constructor(private chatStore: ChatStore) { }
 
   ngOnInit(): void {
-    this.doggoLastConv = this.chatStore.getLastConv(this.doggo.id);
+    //Récupération du dernier chat avec le doggo
+    this.doggoLastChat = this.chatStore.getLastChat(this.doggo.id);
   }
 
-  emit(): void {
+  /**
+   * Emet une valeur true lorsque l'image est chargée
+   */
+  imageLoaded(): void {
     this.loaded.emit(true);
   }
 

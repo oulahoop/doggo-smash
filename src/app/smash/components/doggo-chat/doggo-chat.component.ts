@@ -1,10 +1,8 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { SmashModel } from '../../models/smash.model';
 import { SmashService } from '../../services/smash.service';
-import { ChatItemComponent } from '../chat-item/chat-item.component';
 import {MesSmashsStore} from "../../store/mes-smashs.store";
 import {ChatModel} from "../../models/chat.model";
 import {ChatStore} from "../../store/chat.store";
@@ -34,30 +32,40 @@ export class DoggoChatComponent implements OnInit {
   ) {  }
 
   ngOnInit(): void {
+    //récupération de l'index du doggo
     let index = this.route.snapshot.paramMap.get('id');
-
     if(index == null) {
       this.router.navigateByUrl('me');
       return;
     }
-
     this.indexDoggo = +index;
 
+    //récupération du doggo et des chats
     this.getDoggoProfileByIndex();
     this.retrieveChats();
+
+    //initialisation du formulaire et de la vue
     this.formMessage = new FormGroup({
       'content': new FormControl('')
     });
+
     this.scrollToBottom();
   }
 
+  /**
+   * Scroll en bas des chats pour afficher les derniers.
+   */
   scrollToBottom(): void {
     try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch(err) {
+      console.error(err)
     }
   }
 
+  /**
+   * Récupère le doggo par son index
+   */
   getDoggoProfileByIndex(): void{
     this.doggo = this.mesSmashStore.getDoggoByIndex(this.indexDoggo);
     if(this.doggo === null) {
@@ -65,28 +73,46 @@ export class DoggoChatComponent implements OnInit {
     }
   }
 
+  /**
+   * Récupère les chats avec le doggo
+   */
   retrieveChats() {
     this.chats = this.chatStore.retrieveAllChats(this.doggo.id);
   }
 
+  /**
+   * Envoie un message au doggo
+   * @param event
+   */
   sendMessage(event: any) {
+    //on stop le fonctionnement par défaut du bonton de submit du formulaire (car ça reload la page)
     event.preventDefault();
 
+    //On envoie pas de chat si contenu vide
     if(this.content.value == ""){
       return
     }
 
+    //On envoie le chat
     let chatToSend = new ChatModel(this.doggo.id, this.content.value, true);
     this.chatStore.addChat(chatToSend);
     this.chats.push(chatToSend);
-    this.formMessage.setValue({'content':''});
 
+    //on reinitialise l'input d'envoie de message
+    this.formMessage.setValue({'content':''});
+    //on ajoute une réponse du doggo
     this.addResponse();
+
+    //On scroll vers le bas
+    //Le timeout est là pour que le scroll se fasse bien après l'update de la vue
     setTimeout(() => {
       this.scrollToBottom();
     }, 1);
   }
 
+  /**
+   * Ajoute une réponse aléatoire de la part du doggo parmis les potentialResp.
+   */
   addResponse():void {
     let potentialResp = [
       "Wouf wouf",

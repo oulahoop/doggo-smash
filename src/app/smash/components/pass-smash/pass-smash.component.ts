@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { SmashModel } from '../../models/smash.model';
 import { SmashService } from '../../services/smash.service';
 import {MesSmashsStore} from "../../store/mes-smashs.store";
@@ -20,10 +19,16 @@ export class PassSmashComponent implements OnInit {
     this.switchDoggo();
   }
 
+  /**
+   * Active les boutons de SMASH et PASS
+   */
   enableButtons() {
     this.buttons = true;
   }
 
+  /**
+   * Change le doggo à SMASH OR PASS.
+   */
   switchDoggo() {
     this.doggo = null;
     this.smashService.getDoggo().subscribe(doggo => {
@@ -32,6 +37,9 @@ export class PassSmashComponent implements OnInit {
     this.buttons = false;
   }
 
+  /**
+   * Ajoute le doggo aux doggo smashs
+   */
   smashDoggo() {
     this.mesSmashsStore.addSmash(this.doggo);
     this.switchDoggo();
